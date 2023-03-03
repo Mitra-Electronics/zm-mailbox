@@ -17854,7 +17854,11 @@ public abstract class ZAttrAccount  extends MailTarget {
      *
      * @return zimbraFeatureMailRecallEnabled, or false if unset
      *
+<<<<<<< HEAD
      * @since ZCS 10.1.0
+=======
+     * @since ZCS 10.0.0
+>>>>>>> 9d63b034ee (ZCS-12471- adding LDAP attribute for mail recall)
      */
     @ZAttr(id=4094)
     public boolean isFeatureMailRecallEnabled() {
@@ -17867,7 +17871,11 @@ public abstract class ZAttrAccount  extends MailTarget {
      * @param zimbraFeatureMailRecallEnabled new value
      * @throws com.zimbra.common.service.ServiceException if error during update
      *
+<<<<<<< HEAD
      * @since ZCS 10.1.0
+=======
+     * @since ZCS 10.0.0
+>>>>>>> 9d63b034ee (ZCS-12471- adding LDAP attribute for mail recall)
      */
     @ZAttr(id=4094)
     public void setFeatureMailRecallEnabled(boolean zimbraFeatureMailRecallEnabled) throws com.zimbra.common.service.ServiceException {
@@ -17883,7 +17891,11 @@ public abstract class ZAttrAccount  extends MailTarget {
      * @param attrs existing map to populate, or null to create a new map
      * @return populated map to pass into Provisioning.modifyAttrs
      *
+<<<<<<< HEAD
      * @since ZCS 10.1.0
+=======
+     * @since ZCS 10.0.0
+>>>>>>> 9d63b034ee (ZCS-12471- adding LDAP attribute for mail recall)
      */
     @ZAttr(id=4094)
     public Map<String,Object> setFeatureMailRecallEnabled(boolean zimbraFeatureMailRecallEnabled, Map<String,Object> attrs) {
@@ -17897,7 +17909,11 @@ public abstract class ZAttrAccount  extends MailTarget {
      *
      * @throws com.zimbra.common.service.ServiceException if error during update
      *
+<<<<<<< HEAD
      * @since ZCS 10.1.0
+=======
+     * @since ZCS 10.0.0
+>>>>>>> 9d63b034ee (ZCS-12471- adding LDAP attribute for mail recall)
      */
     @ZAttr(id=4094)
     public void unsetFeatureMailRecallEnabled() throws com.zimbra.common.service.ServiceException {
@@ -17912,7 +17928,11 @@ public abstract class ZAttrAccount  extends MailTarget {
      * @param attrs existing map to populate, or null to create a new map
      * @return populated map to pass into Provisioning.modifyAttrs
      *
+<<<<<<< HEAD
      * @since ZCS 10.1.0
+=======
+     * @since ZCS 10.0.0
+>>>>>>> 9d63b034ee (ZCS-12471- adding LDAP attribute for mail recall)
      */
     @ZAttr(id=4094)
     public Map<String,Object> unsetFeatureMailRecallEnabled(Map<String,Object> attrs) {
