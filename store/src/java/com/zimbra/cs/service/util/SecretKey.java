@@ -17,6 +17,7 @@
 
 package com.zimbra.cs.service.util;
 
+import com.google.common.base.Strings;
 import com.zimbra.common.service.ServiceException;
 import com.zimbra.cs.account.Provisioning;
 import org.apache.commons.codec.binary.Hex;
@@ -61,7 +62,11 @@ public class SecretKey {
      * @throws ServiceException
      */
     public static String getMessageVerificationHeaderValue(String id, String date, String from) throws MessagingException, ServiceException {
-        String secretKey = Provisioning.getInstance().getConfig().getFeatureMailRecallSecretKey();
+        String secretKey = Provisioning.getInstance().getConfig().getSecretKeyForMailRecall();
+        if (Strings.isNullOrEmpty(secretKey)) {
+            secretKey = SecretKey.generateRandomString();
+            Provisioning.getInstance().getConfig().setSecretKeyForMailRecall(secretKey);
+        }
         String guid = (id + date + from + secretKey);
         String guidHash = getHashForMessageVerification(guid);
         String hash = MSGVRFY_HEADER_PREFIX + guidHash;
@@ -85,9 +90,7 @@ public class SecretKey {
                 hexString.insert(0, '0');
             }
 
-            String basicBase64format
-                    = Base64.getEncoder()
-                    .encodeToString(hexString.toString().getBytes());
+            String basicBase64format = Base64.getEncoder().encodeToString(hexString.toString().getBytes());
             return basicBase64format;
         } catch (NoSuchAlgorithmException e) {
             throw ServiceException.FAILURE("Unable to encrypt", e);

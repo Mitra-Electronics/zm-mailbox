@@ -10332,9 +10332,6 @@ TODO: delete them permanently from here
   <defaultCOSValue>30</defaultCOSValue>
   <desc>Time(in minutes) within which a message can be recalled. The default time is 30 minutes and accepts value from 1 to 30.</desc>
 </attr>
-  <attr id="4097" name="secretKeyForMailRecall" type="string" max="128" cardinality="single" optionalIn="globalConfig" since="10.0.0">
-    <desc>Can be used in Mail Recall to make it more secure from spoof.</desc>
-  </attr>
 <attr id="9001" name="zimbraMailSieveScriptMaxSize" type="long" min="0" cardinality="single" optionalIn="globalConfig,account,cos,domain" flags="domainInfo,accountInfo,accountCosDomainInherited" since="11.0.0">
   <globalConfigValue>0</globalConfigValue>
   <defaultCOSValue>0</defaultCOSValue>
@@ -10376,5 +10373,7 @@ TODO: delete them permanently from here
 <attr id="4100" name="zimbraModernWebClientEnabled" type="boolean" cardinality="single" optionalIn="globalConfig,domain" flags="domainInherited,domainInfo,domainAdminModifiable" since="10.1.0">
   <globalConfigValue>TRUE</globalConfigValue>
   <desc>Whether to enable/disable modern ui option on the login screen.</desc>
+<attr id="4097" name="secretKeyForMailRecall" type="string" max="128" cardinality="single" optionalIn="globalConfig" since="10.0.0">
+  <desc>Can be used in Mail Recall to make it more secure from spoof.</desc>
 </attr>
 </attrs>
