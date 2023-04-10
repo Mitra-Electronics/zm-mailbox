@@ -20,6 +20,7 @@ package com.zimbra.cs.account.callback;
 import com.google.common.base.Strings;
 import com.zimbra.common.service.ServiceException;
 import com.zimbra.common.util.ZimbraLog;
+
 import com.zimbra.cs.account.AttributeCallback;
 import com.zimbra.cs.account.Entry;
 import com.zimbra.cs.account.Provisioning;
@@ -31,8 +32,8 @@ import java.util.Map;
 public class GenerateSecretKeyCallback extends AttributeCallback {
 
     @Override
-    public void preModify(CallbackContext context, String attrName, Object value,
-            Map attrsToModify, Entry entry) {
+    public void preModify(CallbackContext context, String attrName, Object value, Map attrsToModify, Entry entry) {
+
     }
 
     @Override
@@ -66,3 +67,4 @@ public class GenerateSecretKeyCallback extends AttributeCallback {
     }
 
 }
+
