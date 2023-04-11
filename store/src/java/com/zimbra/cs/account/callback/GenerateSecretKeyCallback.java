@@ -44,7 +44,6 @@ public class GenerateSecretKeyCallback extends AttributeCallback {
         String secretKey = null;
         try {
             secretKey = Provisioning.getInstance().getConfig().getSecretKeyForMailRecall();
-
             if(Strings.isNullOrEmpty(secretKey)) {
                 secretKey = SecretKey.generateRandomString();
                 Provisioning.getInstance().getConfig().setSecretKeyForMailRecall(secretKey);
