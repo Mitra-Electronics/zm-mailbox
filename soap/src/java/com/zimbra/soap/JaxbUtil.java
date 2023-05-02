@@ -1173,8 +1173,9 @@ public final class JaxbUtil {
             com.zimbra.soap.admin.message.EditS3BucketConfigRequest.class,
             com.zimbra.soap.admin.message.EditS3BucketConfigResponse.class,
             com.zimbra.soap.admin.message.GenerateSecretKeyRequest.class,
-            com.zimbra.soap.admin.message.GenerateSecretKeyResponse.class
-
+            com.zimbra.soap.admin.message.GenerateSecretKeyResponse.class,
+            com.zimbra.soap.account.message.MailRecallRequest.class,
+            com.zimbra.soap.account.message.MailRecallResponse.class
         };
 
         try {
