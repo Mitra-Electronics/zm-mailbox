@@ -18,12 +18,55 @@
 package com.zimbra.soap.account.message;
 
 import com.zimbra.common.soap.AccountConstants;
+import com.zimbra.soap.admin.type.AdminAttrsImpl;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
 
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name = AccountConstants.E_MAIL_RECALL_RESPONSE)
-public class MailRecallResponse {
+public class MailRecallResponse extends AdminAttrsImpl {
+    @XmlElement
+    private Set<String> mailIds;
+    @XmlElement
+    private int successfulRecall;
+    @XmlElement
+    private int unSuccessfulRecall;
+    @XmlElement
+    private boolean isAllMailRecalled;
+
+    public Set<String> getMailIds() {
+        return mailIds;
+    }
+
+    public void setMailIds(Set<String> mailIds) {
+        this.mailIds = mailIds;
+    }
+
+    public int getSuccessfulRecall() {
+        return successfulRecall;
+    }
+
+    public void setSuccessfulRecall(int successfulRecall) {
+        this.successfulRecall = successfulRecall;
+    }
+
+    public int getUnSuccessfulRecall() {
+        return unSuccessfulRecall;
+    }
+
+    public void setUnSuccessfulRecall(int unSuccessfulRecall) {
+        this.unSuccessfulRecall = unSuccessfulRecall;
+    }
+
+    public boolean isAllMailRecalled() {
+        return isAllMailRecalled;
+    }
+
+    public void setAllMailRecalled(boolean allMailRecalled) {
+        isAllMailRecalled = allMailRecalled;
+    }
 }
