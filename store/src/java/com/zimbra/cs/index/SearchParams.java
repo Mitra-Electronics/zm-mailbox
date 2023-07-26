@@ -419,6 +419,8 @@ public final class SearchParams implements Cloneable, ZimbraSearchParams {
             recipients = OutputParticipants.PUT_BOTH;
         } else if (1 == value) {
             recipients = OutputParticipants.PUT_RECIPIENTS;
+        } else if (3 == value) {
+            recipients = OutputParticipants.PUT_ALL;
         } else {
             recipients = OutputParticipants.PUT_SENDERS;
         }
@@ -620,7 +622,7 @@ public final class SearchParams implements Cloneable, ZimbraSearchParams {
         params.setOffset(MoreObjects.firstNonNull(soapParams.getOffset(), 0));
 
         CursorInfo cursor = soapParams.getCursor();
-       
+
         if (cursor != null ) {
             params.parseCursor(cursor, zsc.getRequestedAccountId(), params);
         }
@@ -644,7 +646,7 @@ public final class SearchParams implements Cloneable, ZimbraSearchParams {
         if (sortBy == null) {
             return false;
         }
-        return (sortBy.getKey() == SortBy.READ_ASC.getKey() 
+        return (sortBy.getKey() == SortBy.READ_ASC.getKey()
             || sortBy.getKey() == SortBy.READ_DESC.getKey());
     }
 
@@ -778,7 +780,7 @@ public final class SearchParams implements Cloneable, ZimbraSearchParams {
             cursor.sortValue = cursorInfo.getSortVal(); // optional
             cursor.endSortValue = cursorInfo.getEndSortVal(); // optional
         }
-       
+
         cursor.includeOffset = MoreObjects.firstNonNull(cursorInfo.getIncludeOffset(), false); // optional
     }
 

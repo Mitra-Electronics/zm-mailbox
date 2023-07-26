@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -186,7 +187,8 @@ public final class ToXML {
     public static enum OutputParticipants {
         PUT_SENDERS(0),
         PUT_RECIPIENTS(1),
-        PUT_BOTH(2);
+        PUT_BOTH(2),
+        PUT_ALL(3);
 
         private int value;
         OutputParticipants(int value) {
@@ -203,6 +205,8 @@ public final class ToXML {
                 return PUT_RECIPIENTS;
             } else if (WantRecipsSetting.PUT_BOTH.equals(jaxb)) {
                 return PUT_BOTH;
+            } else if (WantRecipsSetting.PUT_ALL.equals(jaxb)) {
+                return PUT_ALL;
             }
             return PUT_SENDERS;
         }
@@ -236,7 +240,7 @@ public final class ToXML {
             return encodeDocument(parent, ifmt, octxt, (Document) item, fields);
         } else if (item instanceof Message) {
             OutputParticipants output = fields == NOTIFY_FIELDS ?
-                    OutputParticipants.PUT_BOTH : OutputParticipants.PUT_SENDERS;
+                    OutputParticipants.PUT_ALL : OutputParticipants.PUT_SENDERS;
             return encodeMessageSummary(parent, ifmt, octxt, (Message) item, output, fields);
         } else if (item instanceof Comment) {
             return encodeComment(parent, ifmt, octxt, (Comment) item, fields);
@@ -2082,14 +2086,31 @@ public final class ToXML {
         if (!needToOutput(fields, Change.CONTENT)) {
             return el;
         }
-        boolean addRecips = (output == OutputParticipants.PUT_RECIPIENTS || output == OutputParticipants.PUT_BOTH);
+        boolean addRecips = (output == OutputParticipants.PUT_RECIPIENTS || output == OutputParticipants.PUT_BOTH );
         boolean addSenders = (output == OutputParticipants.PUT_BOTH || output == OutputParticipants.PUT_SENDERS);
+        boolean addAll = output == OutputParticipants.PUT_ALL;
         if (addRecips) {
             addEmails(el, Mime.parseAddressHeader(msg.getRecipients()), EmailType.TO);
         }
         if (addSenders) {
             encodeEmail(el, msg.getSender(), EmailType.FROM);
         }
+        if (addAll) {
+            InternetAddress[] allRecipientsCC = null;
+            InternetAddress[] allRecipientsBCC = null;
+            try {
+                allRecipientsCC = (InternetAddress[]) msg.getParsedMessage().getMimeMessage().getRecipients(RecipientType.CC);
+                allRecipientsBCC = (InternetAddress[]) msg.getParsedMessage().getMimeMessage().getRecipients(RecipientType.BCC);
+                } catch (MessagingException | ServiceException e) {
+            }
+            if(allRecipientsCC != null) {
+                addEmails(el, allRecipientsCC, EmailType.CC);
+            }
+            if (allRecipientsBCC != null) {
+                addEmails(el, allRecipientsBCC, EmailType.BCC);
+            }
+        }
+
         el.addAttribute(MailConstants.E_SUBJECT, StringUtil.stripControlCharacters(msg.getSubject()),
                 Element.Disposition.CONTENT);
 
