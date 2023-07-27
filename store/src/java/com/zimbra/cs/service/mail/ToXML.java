@@ -2086,8 +2086,8 @@ public final class ToXML {
         if (!needToOutput(fields, Change.CONTENT)) {
             return el;
         }
-        boolean addRecips = (output == OutputParticipants.PUT_RECIPIENTS || output == OutputParticipants.PUT_BOTH );
-        boolean addSenders = (output == OutputParticipants.PUT_BOTH || output == OutputParticipants.PUT_SENDERS);
+        boolean addRecips = (output == OutputParticipants.PUT_RECIPIENTS || output == OutputParticipants.PUT_BOTH || output == OutputParticipants.PUT_ALL);
+        boolean addSenders = (output == OutputParticipants.PUT_BOTH || output == OutputParticipants.PUT_SENDERS || output == OutputParticipants.PUT_ALL);
         boolean addAll = output == OutputParticipants.PUT_ALL;
         if (addRecips) {
             addEmails(el, Mime.parseAddressHeader(msg.getRecipients()), EmailType.TO);
@@ -2099,11 +2099,14 @@ public final class ToXML {
             InternetAddress[] allRecipientsCC = null;
             InternetAddress[] allRecipientsBCC = null;
             try {
-                allRecipientsCC = (InternetAddress[]) msg.getParsedMessage().getMimeMessage().getRecipients(RecipientType.CC);
-                allRecipientsBCC = (InternetAddress[]) msg.getParsedMessage().getMimeMessage().getRecipients(RecipientType.BCC);
-                } catch (MessagingException | ServiceException e) {
+                allRecipientsCC = (InternetAddress[]) msg.getParsedMessage().getMimeMessage()
+                        .getRecipients(RecipientType.CC);
+                allRecipientsBCC = (InternetAddress[]) msg.getParsedMessage().getMimeMessage()
+                        .getRecipients(RecipientType.BCC);
+            } catch (MessagingException | ServiceException e) {
+                ZimbraLog.mailbox.error("Unable to get CC/BCC recipients of the message", e);
             }
-            if(allRecipientsCC != null) {
+            if (allRecipientsCC != null) {
                 addEmails(el, allRecipientsCC, EmailType.CC);
             }
             if (allRecipientsBCC != null) {
